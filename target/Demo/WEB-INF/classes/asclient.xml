@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="GBK"?>
+<system>
+      <category name="server" description="服务器配置">
+        <!--<item name="host" value="119.97.142.218" description="服务器" />
+        <item name="port" value="443" description="服务器监听的端口" />-->
+        <item name="host" value="172.16.124.180" description="服务器" />
+        <item name="port" value="10000" description="服务器监听的端口" />
+        <item name="minnum" value="5" description="服务器启动时创建的最小ASClient连接数" />
+       	<item name="maxnum" value="8" description="服务器启动时创建的最大ASClient连接数" />
+       	<item name="servername" value="AR1" description="连接池主机别名" />
+    </category>
+    <category name="packet" description="包数据处理配置">
+        <item name="type" value="0" description="返回包类型 0：正常包,缺省值 1：ZLIB压缩包 2：加密包 3:ZLIB压缩后加密包" />
+        <item name="key" value="长江证券股份有限公司" description="解密密匙" />
+    </category>
+    <category name="pool" description="连接池配置">
+     	<item name="openASClientPool" value="1" description="是否启动连接池功能：1表示开启，0表示不开启" />
+        <item name="ifmonitor" value="0" description="是否开启连接池的监控功能：1表示开启，0表示不开启" />
+        <item name="monitorport" value="9000" description="连接池的监控端口" />
+        <item name="openSMSWarning" value="0" description="是否开启连接池的短信告警功能：1表示开启，0表示不开启" />
+        <item name="openEMAILWarning" value="0" description="是否开启连接池的邮件告警功能：1表示开启，0表示不开启" />
+        <item name="time_check_server" value="10000" description="检测连接池主机是否可以连接的时间间隔，单位是毫秒" />
+        <item name="time_check_unsed" value="50000" description="检测未使用连接队列的时间间隔，单位是毫秒" />
+        <item name="time_check_used" value="600000" description="检测已使用连接队列的时间间隔，单位是毫秒" />
+        <item name="timeout" value="5000" description="检测已使用连接队列时，如果发现存在连接的被占用时间大于该值，则强制关闭该连接,一般设置为1个小时=3600000毫秒" />
+    	<item name="debug_level" value="0" description="连接池日志信息的级别：0表示不打印任何信息；1表示打印error信息；2表示打印error、info信息；3表示打印error、info、debug信息" />
+    </category>
+</system>

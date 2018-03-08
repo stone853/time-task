@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apex.bss.cjsc.dao.OpenPositionDao">
+
+    <select id="openNew" parameterType="map" statementType="CALLABLE" >
+          {call PRO_PIF_TZZH_ZHKC(#{O_CODE,mode=OUT,jdbcType=NUMERIC},#{O_NOTE,mode=OUT,jdbcType=VARCHAR},#{I_KHLX,mode=IN,jdbcType=VARCHAR},
+          #{I_KHH,mode=IN,jdbcType=VARCHAR},#{I_ZJZH,mode=IN,jdbcType=VARCHAR},#{I_ZHBH,mode=IN,jdbcType=VARCHAR},
+          #{I_YWLX,mode=IN,jdbcType=VARCHAR},#{I_KTQD,mode=IN,jdbcType=VARCHAR})}
+    </select>
+
+    <select id="modifyConfig" parameterType="map" statementType="CALLABLE" >
+        {call PRO_PIF_TZZH_ZHFA(#{O_CODE,mode=OUT,jdbcType=NUMERIC},#{O_NOTE,mode=OUT,jdbcType=VARCHAR},#{I_CZLX,mode=IN,jdbcType=NUMERIC},
+        #{I_KHLX,mode=IN,jdbcType=NUMERIC},#{I_KHH,mode=IN,jdbcType=VARCHAR},#{I_ZJZH,mode=IN,jdbcType=VARCHAR},
+        #{I_ZHBH,mode=IN,jdbcType=VARCHAR},#{I_YWLXBM,mode=IN,jdbcType=VARCHAR},#{I_PBBM,mode=IN,jdbcType=VARCHAR},
+        #{I_CPID,mode=IN,jdbcType=VARCHAR})}
+    </select>
+
+    <resultMap type ="java.util.HashMap" id= "cursor1">
+        <result column ="grjp" property="grjp" />
+        <result column ="khh" property="khh"  />
+        <result column ="zjzh" property="zjzh"  />
+        <result column ="zhbh" property="zhbh"  />
+        <result column ="cpdm" property="cpdm"  />
+        <result column ="jjgs" property="jjgs"  />
+        <result column ="kyfe" property="kyfe"  />
+    </resultMap >
+    <select id="queryPositon" parameterType="map" statementType="CALLABLE" >
+        {call PCX_PIF_ZHJY_KHCCXX(#{O_CODE,mode=OUT,jdbcType=NUMERIC},#{O_NOTE,mode=OUT,jdbcType=VARCHAR},
+        #{O_RESULT,mode=OUT,jdbcType=CURSOR, resultMap=cursor1},#{I_ZHBH,mode=IN,jdbcType=VARCHAR},#{I_CPID,mode=IN,jdbcType=VARCHAR})}
+    </select>
+
+    <resultMap type ="java.util.HashMap" id= "cursor2">
+        <result column ="zhlx" property="zhlx"/>
+        <result column ="bm" property="bm"/>
+        <result column ="mc" property="mc"/>
+        <result column ="yxwtqd" property="yxwtqd"/>
+        <result column ="yxwtfs" property="yxwtfs"/>
+        <result column ="cpdm" property="cpdm"/>
+        <result column ="jj" property="jj"/>
+        <result column ="zt" property="zt"/>
+        <result column ="op_station" property="op_station"/>
+    </resultMap >
+    <select id="synchronizeProduct" parameterType="map" statementType="CALLABLE" >
+        {call PCX_PIF_LCMB_CPXX(#{O_CODE,mode=OUT,jdbcType=NUMERIC},#{O_NOTE,mode=OUT,jdbcType=VARCHAR},
+        #{O_RESULT,mode=OUT,jdbcType=CURSOR, resultMap=cursor2},#{I_FAID,mode=IN,jdbcType=NUMERIC})}
+    </select>
+
+    <select id="orderProcessing" parameterType="map" statementType="CALLABLE" >
+        {call PRO_PIF_JYCZ_CXCZ(#{O_CODE,mode=OUT,jdbcType=NUMERIC},#{O_NOTE,mode=OUT,jdbcType=VARCHAR},#{I_CZLX,mode=IN,jdbcType=NUMERIC},
+        #{I_CZLSH,mode=IN,jdbcType=VARCHAR},#{I_ZHBH,mode=IN,jdbcType=VARCHAR},#{I_OP_STATION,mode=IN,jdbcType=VARCHAR},
+        #{I_CZZT,mode=IN,jdbcType=VARCHAR})}
+    </select>
+
+    <select id="judgmentDay" parameterType="map" statementType="CALLABLE" >
+        {call crmii.PCX_SFJYR(#{I_RQ,mode=IN,jdbcType=NUMERIC},#{O_ISVALID,mode=OUT,jdbcType=NUMERIC})}
+    </select>
+
+    <select id="selectOp_station" parameterType="map" statementType="CALLABLE">
+        {#{op_station,jdbcType=VARCHAR,mode=OUT} =call CRMII.FUNC_GET_SYSVERSION}
+    </select>
+
+    <select id="queryPurchase" resultType="map">
+        SELECT KHLX,KHH,ZJZH,ZHBH,SGCPCF FROM PIF.TPIF_ZHJY_CPTZ
+    </select>
+
+    <select id="redemptionMoney" resultType="map">
+        SELECT A.KHH,A.ZJZH,A.ZHBH,A.CZLSH,A.SHJE FROM PIF.TPIF_ZHJY_SHWC A
+    </select>
+
+    <select id="fundIn" resultType="map" parameterType="int">
+        SELECT KHH,ZJZH,ZHBH,HBJE FROM PIF.TPIF_ZHJY_DTXXB WHERE SFZX=#{NUMBER}
+    </select>
+
+    <select id="applyPurchase" resultType="map" parameterType="int">
+        SELECT KHH,ZJZH,ZHBH,DTCPCF FROM PIF.TPIF_ZHJY_DTXXB WHERE SFZX=#{NUMBER}
+    </select>
+
+    <select id="allocationStatus" parameterType="map" statementType="CALLABLE" >
+        {call PRO_PIF_ZJGL_ZJHBMX(#{O_CODE,mode=OUT,jdbcType=NUMERIC},#{O_NOTE,mode=OUT,jdbcType=VARCHAR},#{I_CZLSH,mode=IN,jdbcType=VARCHAR},
+        #{I_KHH,mode=IN,jdbcType=VARCHAR},#{I_ZJZH,mode=IN,jdbcType=VARCHAR},#{I_ZHBH,mode=IN,jdbcType=VARCHAR},
+        #{I_DBFX,mode=IN,jdbcType=NUMERIC},#{I_DBJE,mode=IN,jdbcType=NUMERIC},#{I_ZT,mode=IN,jdbcType=NUMERIC})}
+    </select>
+
+    <select id="isTradeTime" parameterType="map" statementType="CALLABLE" >
+        {call PIF.PCX_PIF_SFZXCZ(#{O_CODE,mode=OUT,jdbcType=NUMERIC},#{O_NOTE,mode=OUT,jdbcType=VARCHAR})}
+    </select>
+
+    <select id="allotMoney" parameterType="map" statementType="CALLABLE" >
+        {call PRO_PIF_ZHJY_ZJHBJG(#{O_CODE,mode=OUT,jdbcType=NUMERIC},#{O_NOTE,mode=OUT,jdbcType=VARCHAR},#{I_TJRQ,mode=IN,jdbcType=NUMERIC},
+        #{I_ZHBH,mode=IN,jdbcType=VARCHAR},#{I_ZT,mode=IN,jdbcType=NUMERIC})}
+    </select>
+
+    <select id="masterLog" parameterType="map" statementType="CALLABLE" >
+        {call PRO_PIF_RZGL_ZGCRWZXRZ(#{O_CODE,mode=OUT,jdbcType=NUMERIC},#{O_NOTE,mode=OUT,jdbcType=VARCHAR},#{I_GXZT,mode=IN,jdbcType=NUMERIC},
+        #{I_ID,mode=IN,jdbcType=NUMERIC},#{I_ZT,mode=IN,jdbcType=NUMERIC},#{I_BZ,mode=IN,jdbcType=VARCHAR})}
+    </select>
+
+    <select id="subLog" parameterType="map" statementType="CALLABLE" >
+        {call PRO_PIF_RZGL_DSRWRZ(#{O_CODE,mode=OUT,jdbcType=NUMERIC},#{O_NOTE,mode=OUT,jdbcType=VARCHAR},#{I_CZLX,mode=IN,jdbcType=NUMERIC},
+        #{I_GXZT,mode=IN,jdbcType=NUMERIC},#{I_TQSC,mode=IN,jdbcType=NUMERIC},#{I_ZXSC,mode=IN,jdbcType=NUMERIC},
+        #{I_ID,mode=IN,jdbcType=NUMERIC},#{I_ZRWID,mode=IN,jdbcType=NUMERIC},#{I_ZT,mode=IN,jdbcType=NUMERIC},
+        #{I_ZJLS,mode=IN,jdbcType=NUMERIC},#{I_CGJLS,mode=IN,jdbcType=NUMERIC},#{I_SBJLS,mode=IN,jdbcType=NUMERIC},
+        #{I_BZ,mode=IN,jdbcType=NUMERIC})}
+    </select>
+
+    <select id="isOpen" parameterType="map" statementType="CALLABLE" >
+        {call PCX_PIF_LCMB_SFKTYW(#{O_CODE,mode=OUT,jdbcType=NUMERIC},#{O_NOTE,mode=OUT,jdbcType=VARCHAR},
+        #{I_KHH,mode=IN,jdbcType=VARCHAR},#{I_ZJZH,mode=IN,jdbcType=VARCHAR},#{I_YWLXBM,mode=IN,jdbcType=VARCHAR})}
+    </select>
+</mapper>

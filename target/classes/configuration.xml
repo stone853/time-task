@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="GBK"?>
+<system>
+    
+
+
+    <category name="Jedis" description="jedis参数配置">
+        <item name="ip" value="192.168.1.27" description=""/>
+        <item name="port" value="6379" description=""/>
+        <item name="pass" value="redisForTest" description=""/>
+    </category>
+
+
+	<category name="sentinel" description="sentinel参数配置">
+        <item name="hostAndPort" value="192.168.1.27:26379" description=""/>
+        <item name="clusterName" value="mymaster" description=""/>
+        <item name="pass" value="redisForTest" description=""/>
+    </category>
+
+    <category name="timerTaskPool" description="sentinel参数配置">
+        <item name="corePoolSize" value="10" description=""/>
+        <item name="maximumPoolSize" value="40" description=""/>
+        <item name="keepAliveTime" value="600" description=""/>
+        <item name="queueNumber" value="10000" description=""/>
+    </category>
+
+    <category name="hsifs" description="sentinel参数配置">
+        <item name="hs_func_no" value="HS850002" description=""/>
+        <item name="extsystem_user_id" value="100005" description=""/>
+        <item name="extsystem_password" value="111111" description=""/>
+    </category>
+
+
+    <category name="taskTime" description="sentinel参数配置">
+        <item name="startTask_1" value="09:20:00" description=""/>
+        <item name="endTask_1" value="09:35:00" description=""/>
+        <item name="sleepTime" value="30000" description="毫秒"/>
+
+        <item name="startTask_2" value="09:36:00" description=""/>
+        <item name="endTask_2" value="09:50:00" description=""/>
+
+        <item name="startTask_3" value="09:51:00" description=""/>
+        <item name="endTask_3" value="10:20:00" description=""/>
+
+        <item name="startTask_4" value="09:51:00" description=""/>
+        <item name="endTask_4" value="10:20:00" description=""/>
+    </category>
+    
+
+</system>

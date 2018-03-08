@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apex.bss.cjsc.dao.TestProcDao">
+    <resultMap type ="java.util.HashMap" id= "cursorMap">
+        <result column ="id" property="id" />
+        <result column ="name" property="name"  />
+    </resultMap >
+    <select id ="getList" parameterType= "map" statementType="CALLABLE" >
+        <!--注明statementType="CALLABLE"表示调用存储过程-->
+        {call jstest01(#{i_userid, jdbcType=NUMERIC, mode=OUT},
+        #{v_cursor, mode=OUT, jdbcType=CURSOR, resultMap=cursorMap})}
+        <!--传入传出参数要注明mode=IN/OUT 并要注明jdbcType（在网上可以查询mybatis支持哪些jdbcType类型），返回参数要注明对应的resultMap-->
+    </select >
+
+
+
+
+</mapper>
